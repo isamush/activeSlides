@@ -29,8 +29,9 @@
 
     function loadCSVdata() {
             var data = $('#csvdata').val();
-            console.log("in load  func");
-            console.log(data);
+            //console.log("in load  func");
+            //console.log(data);
+            $('#kaishi').prop('disabled', false);
             var target = '#csv-body';
             slides = $.csv.toArrays(data);
             var insert = '';
@@ -141,13 +142,13 @@
       <img id="simg" alt="" height="400px">
     </div>
     <div>
-      <textarea id="sentence" name="sentence1" style="width:800px;height:50px">
+      <textarea id="sentence" name="sentence1" disabled style="width:800px;height:50px">
       </textarea><br/>
-    	<button id="kaishi">開始</button>
+    	<button id="kaishi" disabled>開始</button>
     	<button id="ichiji" disabled>一時停止</button>
     	<button id="teishi" disabled>停止</button>
     </div>
-
+    
     <div>
       <textarea id="csvdata" name="csv" style="width:800px;height:200px">
 "https://raw.githubusercontent.com/isamush/activeSlides/master/sample1/slide1.png","テスト・プレゼンテーションを、始めます。これは、スライド1です。"
