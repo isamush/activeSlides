@@ -4,8 +4,11 @@
 
     <title> Active Slide  prototype </title>
 
-    <script src="../js/jquery-3.5.1.min.js"></script>
-    <script src="../js/jquery.csv.1.0.8.min.js"></script>
+    <!--    <script src="../js/jquery-3.5.1.min.js"></script>
+        <script src="../js/jquery.csv.1.0.8.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js"></script>
+
     <script type="text/javascript">
 
    /////////////////////////////////////////
@@ -28,23 +31,38 @@
     }
 
     function loadCSVdata() {
-            var data = $('#csvdata').val();
-            //console.log("in load  func");
-            //console.log(data);
-            $('#kaishi').prop('disabled', false);
-            var target = '#csv-body';
-            slides = $.csv.toArrays(data);
-            var insert = '';
-            $(slides).each(function() {
-                if (this.length > 1) {
-                    insert += '<tr>';
-                    insert += '<td><img src="' + this[0] + '" width="200px"></td>';
-                    insert += '<td>' + this[1] + '</td>';
-                    insert += '</tr>';
-                }
-            });
-            $(target).append(insert);
+        var data = $('#csvdata').val();
+        //console.log("in load  func");
+        //console.log(data);
+        var target = '#dispTable';
+        $(target).empty();
+        try {
+          slides = $.csv.toArrays(data);
+        } catch (e) {
+          $('#kaishi').prop('disabled', true);
+          $('#errorMsg').empty();
+          $('#errorMsg').append('<h2>スライド・データのエラー:' + e + '</h2>');
+          $('#errorMsg').show();
+          //alert('CSVエラー:' +   e);
+          $(target).hide();
+          return;
         }
+
+        $('#errorMsg').hide();
+        $(target).show();
+        var insert = ' <table><thead><tr><th>スライド</th><th>ナレーション</th></tr></thead><tbody>';
+        $('#kaishi').prop('disabled', false);
+        $(slides).each(function() {
+            if (this.length > 1) {
+                insert += '<tr>';
+                insert += '<td><img src="' + this[0] + '" width="200px"></td>';
+                insert += '<td>' + this[1] + '</td>';
+                insert += '</tr>';
+            }
+        });
+        insert += '</tbody></table>';
+        $(target).append(insert);
+    }
 
 
 	// 読み上げを実行する
@@ -148,9 +166,9 @@
     	<button id="ichiji" disabled>一時停止</button>
     	<button id="teishi" disabled>停止</button>
     </div>
-    
+
     <div>
-      <textarea id="csvdata" name="csv" style="width:800px;height:200px">
+      <textarea id="csvdata" name="csv" style="width:800px;height:100px">
 "https://raw.githubusercontent.com/isamush/activeSlides/master/sample1/slide1.png","テスト・プレゼンテーションを、始めます。これは、スライド1です。"
 "https://raw.githubusercontent.com/isamush/activeSlides/master/sample1/slide2.png","これは、スライド2です。"
 "https://raw.githubusercontent.com/isamush/activeSlides/master/sample1/slide3.png","これは、スライド３です。"
@@ -158,11 +176,12 @@
    </textarea><br/>
       <button onclick="loadCSVdata()">データ挿入</button>
     </div>
-    <div>
+    <div id="errorMsg" hidden style="width:800px;background-color:#ddddff;"></div>
+    <div id="dispTable" style="width:800px;height: 500px;overflow: auto;">
      <table>
         <!--<caption>スライドの内容</caption> -->
          <thead>
-             <tr><th>スライド</th><th>ナレーション</th></tr>
+
          </thead>
          <tbody id='csv-body' />
      </table>
