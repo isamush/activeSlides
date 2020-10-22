@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.min.js"></script>
+    <script>
+    function putData(inData) {
+      $('#csvdata').val(inData);
+    }
+    function load() {
+            var data = $('#csvdata').val();
+            console.log(data);
+            var target = '#csv-body';
+            try {
+              var csv = $.csv.toArrays(data);
+            } catch (e) {
+              alert('CSVエラー:' +e);
+              return;
+            }
+
+            var insert = '';
+            $(csv).each(function() {
+                if (this.length > 0) {
+                    insert += '<tr>';
+                    $(this).each(function() {
+                        insert += '<td>' + this + '</td>';
+                    });
+                    insert += '</tr>';
+                }
+            });
+            $(target).append(insert);
+        }
+        //var csvfile = 'https://drive.google.com/uc?export=view&id=1zwOQqNWTNJ8tex5jxK5A1IdmT4Jxc-Ey';
+        //var csvfile = 'test.csv';
+        //$(function(){
+        //    $.get(csvfile, putData, 'text');
+        //    });
+    </script>
+<!--    <link rel='stylesheet' href='list.css'> -->
+</head>
+<body>
+<table>
+  <div>
+   <table>
+       <caption>紫陽花の名所</caption>
+       <thead>
+           <tr><th>名前</th><th>場所</th><th>種類</th><th>株数</th></tr>
+       </thead>
+       <tbody id='csv-body' />
+   </table>
+ </div>
+ <div>
+   <textarea id="csvdata" name="csv" style="width:800px;height:200px">
+"恋し野の里あじさい園","和歌山県橋本市",30,6000
+"矢田寺","奈良県大和郡山市",60,8000
+"吉野山","奈良県吉野郡吉野町",,4000
+"富士山","山梨県", 87, 55
+</textarea><br/>
+   <button onclick="load()">データ挿入</button>
+ </div>
+</body>
+</html>
