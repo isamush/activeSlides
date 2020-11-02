@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>input file test</title>
+   <script src="dispImg.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div>
+    <label for="avatar">Choose a profile picture:</label>
+
+    <input type="file"
+           id="filein" name="file"
+           accept="image/png, image/jpeg">
+ </div>
+ <div class="preview">
+           <p>アップロードするファイルが選択されていません</p>
+
+ </div>
+ <script type="text/javascript">
+ const input = document.querySelector('input');
+ const preview = document.querySelector('.preview');
+
+ //input.style.opacity = 0;
+ input.addEventListener('change', updateImageDisplay);
+ </script>
+  </body>
+</html>
