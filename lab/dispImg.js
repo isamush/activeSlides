@@ -5,16 +5,15 @@ function updateImageDisplay() {
 
   const curFiles = $("input").prop("files");
   if(curFiles.length === 0) {
-    const para = document.createElement('p');
-    para.textContent = 'アップロードするファイルが選択されていません';
-    $(".preview").append(para);
+    $("#warnMsg").show();
   } else {
-    list = document.querySelector('ol');
+    //$("#warnMsg").hide();
+    list = $("ol");
     console.log('file is se.');
-    if (list == null) {
+    if (!list.length) {
       console.log('list is created.');
-      list = document.createElement('ol');
-      $(".preview").append(list);
+      list = $('<ol>');
+      $("#warnMsg").append(list);
     }
 
     for(const file of curFiles) {
