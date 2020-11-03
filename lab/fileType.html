@@ -3,27 +3,32 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript"
+       src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <title>input file test</title>
    <script src="dispImg.js" charset="utf-8"></script>
+   <script>
+   // 画面読み込み時に init 関数を実行 (jquery の機能)
+     $(init);
+
+ 	// init 関数を定義．各ボタンをクリックしたら対応する関数を実行
+     function init() {
+       const input = $("input");
+       input.on('change', updateImageDisplay);
+     }
+   </script>
   </head>
   <body>
     <div>
     <label for="avatar">Choose a profile picture:</label>
 
     <input type="file"
-           id="filein" name="file"
-           accept="image/png, image/jpeg">
+           id="slideLoad" name="file"
+           accept="image/png, image/jpeg" multiple>
  </div>
  <div class="preview">
            <p>アップロードするファイルが選択されていません</p>
 
  </div>
- <script type="text/javascript">
- const input = document.querySelector('input');
- const preview = document.querySelector('.preview');
-
- //input.style.opacity = 0;
- input.addEventListener('change', updateImageDisplay);
- </script>
-  </body>
+</body>
 </html>

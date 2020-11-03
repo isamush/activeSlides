@@ -3,18 +3,18 @@ function updateImageDisplay() {
   //  preview.removeChild(preview.firstChild);
   //}
 
-  const curFiles = input.files;
+  const curFiles = $("input").prop("files");
   if(curFiles.length === 0) {
     const para = document.createElement('p');
     para.textContent = 'アップロードするファイルが選択されていません';
-    preview.appendChild(para);
+    $(".preview").append(para);
   } else {
     list = document.querySelector('ol');
     console.log('file is se.');
     if (list == null) {
       console.log('list is created.');
       list = document.createElement('ol');
-      preview.appendChild(list);
+      $(".preview").append(list);
     }
 
     for(const file of curFiles) {
@@ -22,18 +22,18 @@ function updateImageDisplay() {
       const para = document.createElement('p');
       if(validFileType(file)) {
         para.textContent = `ファイル名: ${file.name}, ファイルの長さ: ${returnFileSize(file.size)}.`;
-        const image = document.createElement('img');
+        image = document.createElement('img');
         image.src = URL.createObjectURL(file);
-        //image.width = "200px";
+        image.setAttribute("width", "50px");
 
-        listItem.appendChild(image);
-        listItem.appendChild(para);
+        listItem.append(image);
+        listItem.append(para);
       } else {
         para.textContent = `ファイル名: ${file.name}: ファイル形式が有効ではありません。選択しなおしてください。`;
-        listItem.appendChild(para);
+        listItem.append(para);
       }
 
-      list.appendChild(listItem);
+      list.append(listItem);
     }
   }
 }
