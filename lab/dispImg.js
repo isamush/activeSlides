@@ -7,32 +7,41 @@ function updateImageDisplay() {
   if(curFiles.length === 0) {
     $("#warnMsg").show();
   } else {
-    //$("#warnMsg").hide();
+    $("#warnMsg").hide();
+    $("#slideTable").show();
     list = $("ol");
-    console.log('file is se.');
     if (!list.length) {
       console.log('list is created.');
       list = $('<ol>');
       $("#warnMsg").append(list);
     }
 
+    const tBody = $("#slideRow");
     for(const file of curFiles) {
-      const listItem = document.createElement('li');
-      const para = document.createElement('p');
       if(validFileType(file)) {
-        para.textContent = `ファイル名: ${file.name}, ファイルの長さ: ${returnFileSize(file.size)}.`;
-        image = document.createElement('img');
-        image.src = URL.createObjectURL(file);
-        image.setAttribute("width", "50px");
+        const image = $('<img>');
+        image.attr("src",URL.createObjectURL(file));
+        image.attr("width", "200px");
+        const imageTd = $('<td>');
+        imageTd.append(image);
 
-        listItem.append(image);
-        listItem.append(para);
-      } else {
-        para.textContent = `ファイル名: ${file.name}: ファイル形式が有効ではありません。選択しなおしてください。`;
-        listItem.append(para);
+        const textArea = $('<textarea>');
+        textArea.attr('cols', '40');
+        textArea.attr('rows', '8');
+        textArea.attr('style', 'width: 100%; height: 100%');
+        const textTd = $('<td>');
+        textTd.append(textArea);
+
+        const tblRow = $('<tr>');
+        tblRow.append(imageTd);
+        tblRow.append(textTd);
+        tBody.append(tblRow);
+        //listItem.append(para);
+      } else {0
+        ///_para.textContent = `ファイル名: ${file.name}: ファイル形式が有効ではありません。選択しなおしてください。`;
+        ///zlistItem.append(para);
       }
 
-      list.append(listItem);
     }
   }
 }
