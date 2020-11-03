@@ -9,12 +9,6 @@ function updateImageDisplay() {
   } else {
     $("#warnMsg").hide();
     $("#slideTable").show();
-    list = $("ol");
-    if (!list.length) {
-      console.log('list is created.');
-      list = $('<ol>');
-      $("#warnMsg").append(list);
-    }
 
     const tBody = $("#slideRow");
     for(const file of curFiles) {
@@ -37,7 +31,7 @@ function updateImageDisplay() {
         tblRow.append(textTd);
         tBody.append(tblRow);
         //listItem.append(para);
-      } else {0
+      } else {
         ///_para.textContent = `ファイル名: ${file.name}: ファイル形式が有効ではありません。選択しなおしてください。`;
         ///zlistItem.append(para);
       }
