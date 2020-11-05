@@ -8,6 +8,7 @@
     <title>input file test</title>
    <script src="dispImg.js" charset="utf-8"></script>
    <script>
+   var slides;
    // 画面読み込み時に init 関数を実行 (jquery の機能)
      $(init);
 
@@ -15,6 +16,7 @@
      function init() {
        const input = $("input");
        input.on('change', updateImageDisplay);
+       $('#loadBbtn').on('click', loadData);
      }
    </script>
   </head>
@@ -35,6 +37,13 @@
    <table>
      <thead><tr><th>スライド</th><th>ナレーション</th></tr></thead>
      <tbody id="slideRow">
+     </tbody>
+   </table>
+ </div>
+ <div id="copyTable">
+   <table>
+     <thead><tr><th>スライド</th><th>ナレーション</th></tr></thead>
+     <tbody id="copyRow">
      </tbody>
    </table>
  </div>

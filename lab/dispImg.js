@@ -40,6 +40,39 @@ function updateImageDisplay() {
   }
 }
 
+function loadData () {
+  slides = [];
+  var $rows = $("#slideRow").children();
+
+  var i = 0;
+  while ($rows.length >= i+1) {
+    //console.log($rows[i]);
+    slides.push([$($rows[i]).find('img').attr('src'),
+                $($rows[i]).find('textArea').val()]);
+    i += 1;
+  }
+  console.log(slides);
+
+  $("copyTable").show();
+
+  const tBody = $("#copyRow");
+  for(const slide of slides) {
+      const image = $('<img>');
+      image.attr("src", slide[0]);
+      image.attr("width", "200px");
+      const imageTd = $('<td>');
+      imageTd.append(image);
+
+      const textTd = $('<td>');
+      textTd.append(slide[1]);
+
+      const tblRow = $('<tr>');
+      tblRow.append(imageTd);
+      tblRow.append(textTd);
+      tBody.append(tblRow);
+      //listItem.append(para);
+  }
+}
 // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
 const fileTypes = [
   "image/apng",
