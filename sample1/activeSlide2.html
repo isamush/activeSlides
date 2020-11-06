@@ -164,8 +164,10 @@
       var i = 0;
       while ($rows.length >= i+1) {
         //console.log($rows[i]);
-        slides.push([$($rows[i]).find('img').attr('src'),
-                    $($rows[i]).find('textArea').val()]);
+        var nar = $($rows[i]).find('textArea').val();
+        if (nar.length < 1)
+          nar = "ナレーションがありません。";
+        slides.push([$($rows[i]).find('img').attr('src'),nar]);
         i += 1;
       }
       $('#kaishi').prop('disabled', false);
