@@ -125,8 +125,8 @@
         $("#warnMsg").show();
       } else {
         $("#warnMsg").hide();
-        $("#slideTable").show();
 
+        var errFile = "";
         const tBody = $("#slideRow");
         for(const file of curFiles) {
           if(validFileType(file)) {
@@ -149,11 +149,16 @@
             tBody.append(tblRow);
             //listItem.append(para);
           } else {
-            ///_para.textContent = `ファイル名: ${file.name}: ファイル形式が有効ではありません。選択しなおしてください。`;
-            ///zlistItem.append(para);
+            if (errFile.length > 0)
+              errFile += ", ";
+            errFile += file.name;
           }
 
         }
+        if (errFile.length > 0)
+          alert(errFile + "はアップロードできません。");
+       else
+        $("#slideTable").show();
       }
     }
 
@@ -218,10 +223,9 @@
        accept="image/png, image/jpeg" multiple>
 </div>
 <div id="warnMsg">
-       <p>スライドの画像ファイルが選択されていません</p>
-
+   <p id="warningMsg">スライドの画像ファイルが選択されていません</p>
 </div>
-<div id="slideTable" hidden>
+<div id="slideTable" style="width:800px;height: 500px;overflow: auto;" hidden>
 ナレーションの入力が終わったら、クリック→<button type="button" name="loadBbtn" id="loadBbtn">load</button>
 <table>
  <thead><tr><th>スライド</th><th>ナレーション</th></tr></thead>
